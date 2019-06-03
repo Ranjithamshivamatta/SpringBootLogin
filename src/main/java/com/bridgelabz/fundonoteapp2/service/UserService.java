@@ -20,6 +20,6 @@ public interface UserService {
 
 	public List<User> getUser();
 
-	// String login(LoginRequest loginReq);
+	
 
 }

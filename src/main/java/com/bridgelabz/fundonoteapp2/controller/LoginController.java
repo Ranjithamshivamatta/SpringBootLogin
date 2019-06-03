@@ -34,13 +34,13 @@ public class LoginController {
 	private UserRepository userRep;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginRequest loginReq, HttpServletRequest request,
+	public ResponseEntity<?> login(@RequestBody LoginRequest loginReq, HttpServletRequest request,
 			HttpServletResponse response) {
 		String token = userService.login(loginReq);
 
 		if (token != null) {
 			response.setHeader("token", token);
-			return new ResponseEntity<>(token, HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("{Invalid user}", HttpStatus.BAD_REQUEST);
 		}
