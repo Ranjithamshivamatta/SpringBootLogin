@@ -1,5 +1,6 @@
 package com.bridgelabz.fundonoteapp2.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,16 @@ public class NoteServiceImpl implements NoteService {
 	@Autowired
 	private LabelRepository labelRep;
 
+	
+	
+
 	@Override
 	public Note createNote(String token, Note note) {
 		int varifiedUserId = Utility.tokenVerification(token);
-		System.out.println("note creation :" + varifiedUserId);
+	System.out.println("note creation :" + varifiedUserId);
 		note.setUserId(varifiedUserId);
+	LocalDateTime time=LocalDateTime.now();
+		note.setCreadtedtime(time);
 		return noteRep.save(note);
 	}
 
@@ -105,5 +111,18 @@ public class NoteServiceImpl implements NoteService {
 
 		return labels;
 	}
+//
+//	@Override
+//	
+//		public Note noteCreate(Note note, HttpServletRequest request) {
+//			String token1 = request.getHeader("token");
+//			int id = Utility.tokenVerification(token1);
+//			note.setUserId(id);
+//			LocalDateTime time=LocalDateTime.now();
+//			return noteRep.save(note);
+//			
 
+	
+	
+	
 }

@@ -2,6 +2,8 @@ package com.bridgelabz.fundonoteapp2.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.bridgelabz.fundonoteapp2.model.Label;
 import com.bridgelabz.fundonoteapp2.model.Note;
 
@@ -10,6 +12,7 @@ public interface NoteService {
 	Note updateNote(String header, Note note);
 
 	Note createNote(String header, Note note);
+	//Note noteCreate(Note note,HttpServletRequest request);
 
 	boolean deleteNote(String token, Note note);
 

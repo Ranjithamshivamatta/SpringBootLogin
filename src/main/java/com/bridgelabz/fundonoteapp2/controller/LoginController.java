@@ -40,6 +40,8 @@ public class LoginController {
 
 		if (token != null) {
 			response.setHeader("token", token);
+			response.addHeader("Access-control-Allow-Headers", "*");
+			response.addHeader("Access-control-Expose-Headers", "*");
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("{Invalid user}", HttpStatus.BAD_REQUEST);
@@ -79,7 +81,6 @@ public class LoginController {
 		} else
 			return "not sent";
 	}
-
 	@PutMapping("/resetPassword")
 	public void resetPassword(@RequestBody User user, HttpServletRequest request) {
 

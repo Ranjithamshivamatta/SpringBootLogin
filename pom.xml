@@ -20,7 +20,20 @@
 	</properties>
 
 	<dependencies>
-
+		<!-- Swagger 2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Swagger 2UI -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -51,6 +64,13 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+	
+		 <dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+
+		
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
