@@ -23,15 +23,12 @@ public class NoteServiceImpl implements NoteService {
 	@Autowired
 	private LabelRepository labelRep;
 
-	
-	
-
 	@Override
 	public Note createNote(String token, Note note) {
 		int varifiedUserId = Utility.tokenVerification(token);
-	System.out.println("note creation :" + varifiedUserId);
+		System.out.println("note creation :" + varifiedUserId);
 		note.setUserId(varifiedUserId);
-	LocalDateTime time=LocalDateTime.now();
+		LocalDateTime time = LocalDateTime.now();
 		note.setCreadtedtime(time);
 		return noteRep.save(note);
 	}
@@ -43,27 +40,39 @@ public class NoteServiceImpl implements NoteService {
 		Optional<Note> maybeNote = noteRep.findByUserIdAndNoteId(varifiedUserId, note.getNoteId());
 		System.out.println("maybeNote :" + maybeNote);
 		Note presentNote = maybeNote.map(existingNote -> {
-			System.out.println("noteee here");
+			System.out.println("Notes are here");
 			existingNote.setDiscription(
 					note.getDiscription() != null ? note.getDiscription() : maybeNote.get().getDiscription());
 			existingNote.setTitle(note.getTitle() != null ? note.getTitle() : maybeNote.get().getTitle());
+			existingNote.setIntrash(note.isIntrash());
+			existingNote.setIsarchive(note.isIsarchive());
+			existingNote.setIspinned(note.isIspinned());
 			return existingNote;
 		}).orElseThrow(() -> new RuntimeException("Note Not Found"));
-
+System.out.println(presentNote);
 		return noteRep.save(presentNote);
 	}
 
+//	@Override
+//	public boolean deleteNote(String token, Note note) {
+//		int varifiedUserId = Utility.tokenVerification(token);
+//		noteRep.deleteByUserIdAndNoteId(varifiedUserId, note.getNoteId());
+//		return true;
+//	}
 	@Override
-	public boolean deleteNote(String token, Note note) {
-		int varifiedUserId = Utility.tokenVerification(token);
-		noteRep.deleteByUserIdAndNoteId(varifiedUserId, note.getNoteId());
-		return true;
+	public String deleteNote( int noteId) {
+	// int verifiedUserId = JsonUtil.tokenVerification(token);
+	//noteRep.deleteByUserIdAndNoteId(Util.tokenVerification(token), noteId);
+	noteRep.deleteByNoteId(noteId);
+	return "Deleted";
 	}
+
+
 
 	@Override
 	public List<Note> getNote(String token) {
 		int varifiedUserId = Utility.tokenVerification(token);
-		System.out.println("i m in fetch :" + varifiedUserId);
+		System.out.println("I m in fetch :" + varifiedUserId);
 
 		List<Note> notes = (List<Note>) noteRep.findByUserId(varifiedUserId);
 
@@ -98,31 +107,18 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public boolean deleteLabel(String token, Label label) {
 		int varifiedUserId = Utility.tokenVerification(token);
-		labelRep.deleteByUserIdAndLabelId(varifiedUserId, label.getLabelId());
+		labelRep.deleteByUserIdAndLabelId(varifiedUserId,label.getLabelId());
 		return true;
 	}
-
+	
 	@Override
 	public List<Label> getLabel(String token) {
 		int varifiedUserId = Utility.tokenVerification(token);
-		System.out.println("i m in fetch :" + varifiedUserId);
+		System.out.println("I m in fetch :" + varifiedUserId);
 
 		List<Label> labels = labelRep.findByUserId(varifiedUserId);
 
 		return labels;
 	}
-//
-//	@Override
-//	
-//		public Note noteCreate(Note note, HttpServletRequest request) {
-//			String token1 = request.getHeader("token");
-//			int id = Utility.tokenVerification(token1);
-//			note.setUserId(id);
-//			LocalDateTime time=LocalDateTime.now();
-//			return noteRep.save(note);
-//			
 
-	
-	
-	
 }

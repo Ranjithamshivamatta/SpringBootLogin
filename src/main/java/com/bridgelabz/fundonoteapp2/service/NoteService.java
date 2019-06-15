@@ -11,11 +11,11 @@ public interface NoteService {
 
 	Note updateNote(String header, Note note);
 
-	Note createNote(String header, Note note);
-	//Note noteCreate(Note note,HttpServletRequest request);
-
-	boolean deleteNote(String token, Note note);
-
+	Note createNote(String token, Note note);
+	
+	
+	String deleteNote( int noteId);
+	
 	Label updateLabel(String header, Label label);
 
 	Label createLabel(String header, Label label);
@@ -25,5 +25,7 @@ public interface NoteService {
 	List<Note> getNote(String token);
 
 	List<Label> getLabel(String token);
+
+	//String deleteNote(int noteId, String token);
 
 }
